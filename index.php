@@ -1,6 +1,6 @@
 <?php
 echo "Welcome to the jar Game\n";
-echo "Choose a Jar between 0 and 4\nIf you find 3 keys you win, if it's a snake you loose.\n";
+echo "Choose a Jar between 1 and 5\nIf you find 3 keys you win, if it's a snake you loose.\n";
 
 function chooseDifficulty(){
     $levelMode = readline("Choose difficulty: easy, mid, hard\n");
@@ -22,14 +22,14 @@ function chooseDifficulty(){
 
 
 function game ($jar, &$points, &$playerLoose) {
-    $userChoice = readline("Choose a jar between 0 and 4\n");
-    if (!is_numeric($userChoice) || $userChoice < 0 || $userChoice >4) {
-        $userChoice = readline("Choose a jar between 0 and 4: \n");
+    $userChoice = readline("Choose a jar between 1 and 5\n");
+    if (!is_numeric($userChoice) || $userChoice < 1 || $userChoice >5) {
+        $userChoice = readline("Choose a jar between 1 and 5: \n");
     };
     $userChoice = (int)$userChoice;
 
     echo "You chose the Jar N°: " . $userChoice;
-    if ($jar[$userChoice] == "snake") {
+    if ($jar[$userChoice - 1] == "snake") {
         echo "That's a snake, You loose\n";
         $playerLoose = true;
         return;
