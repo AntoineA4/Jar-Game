@@ -1,11 +1,25 @@
 <?php
 echo "Welcome to the jar Game\n";
 echo "Choose a Jar between 0 and 4\nIf you find 3 keys you win, if it's a snake you loose.\n";
-function initJars() {
-    $jar = ["key", "key", "key", "key", "snake"];
-    shuffle($jar);
+
+function chooseDifficulty(){
+    $levelMode = readline("Choose difficulty: easy, mid, hard\n");
+    if ($levelMode == "easy") {
+        $jar = ["key", "key", "key", "key", "snake"];
+    }
+    elseif ($levelMode == "mid") {
+        $jar = ["key", "key", "key", "snake", "snake"];
+    }
+    elseif ($levelMode == "hard") {
+        $jar = ["key", "key", "snake", "snake", "snake"];
+    }
+    else {
+        echo "Invalid difficulty. Please choose easy, mid, or hard.\n";
+        return chooseDifficulty();
+    };
     return $jar;
-};
+}
+
 
 function game ($jar, &$points, &$playerLoose) {
     $userChoice = readline("Choose a jar between 0 and 4\n");
@@ -24,7 +38,6 @@ function game ($jar, &$points, &$playerLoose) {
         echo "You found a Key, you got +1 point\n";
         $points += 1;
     };
-    return [$points, $playerLoose];
 };
 
 $prompt ="";
@@ -32,8 +45,9 @@ $prompt ="";
 while ($prompt != "Q") {
     $points = 0;
     $playerLoose = false;
+    $jar = chooseDifficulty();
     while ($points < 3 && $playerLoose == false) {
-        $jar = initJars();
+        shuffle($jar);
         game($jar, $points, $playerLoose);
     }
     if ($points == 3) {
